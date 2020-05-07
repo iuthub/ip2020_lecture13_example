@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IServer } from '../iserver';
 
 @Component({
@@ -13,9 +13,19 @@ export class ServerComponent implements OnInit {
   	status:'offline'
   };
 
-  constructor() { }
+  @Output() public statusChanged = new EventEmitter<IServer>();
 
-  ngOnInit() {
+  public constructor() { }
+
+  public ngOnInit():void {
+  }
+
+  public onToggleStatus():void {
+    this.server = {
+      ...this.server,
+      status: this.server.status==='offline'?'online':'offline'
+    };
+    this.statusChanged.emit(this.server);
   }
 
 }

@@ -1,3 +1,5 @@
+// ng g c servers
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IServer } from '../iserver';
@@ -40,6 +42,10 @@ export class ServersComponent implements OnInit {
   			status: this.newServerStatus
   		}
   	]
+  }
+
+  public onStatusChanged(server:IServer):void {
+    console.log(server);
   }
 
 

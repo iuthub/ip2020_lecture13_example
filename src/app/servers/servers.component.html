@@ -5,7 +5,6 @@
 	<!-- <input type="text" (input)="onServerNameInput($event.target.value)"> -->
 	<input type="text" [(ngModel)]="newServerName">
 	&nbsp;
-	
 	<select [(ngModel)]="newServerStatus">
 		<option value="offline">Offline</option>
 		<option value="online">Online</option>
@@ -29,6 +28,6 @@
 </div>
 <ul>
 	<li *ngFor="let s of servers">
-		<app-server [server]="s"></app-server>
+		<app-server [server]="s" (statusChanged)="onStatusChanged($event)"></app-server>
 	</li>
 </ul>
