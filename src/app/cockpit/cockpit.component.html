@@ -1,0 +1,22 @@
+New Server:
+<!-- <input type="text" (input)="onServerNameInput($event.target.value)"> -->
+<input #newServerTextbox type="text" [(ngModel)]="newServerName">
+&nbsp;
+<select [(ngModel)]="newServerStatus">
+	<option value="offline">Offline</option>
+	<option value="online">Online</option>
+</select>
+&nbsp;
+<button (click)="onAddNewServer()">Add</button>
+
+<!-- <span [ngClass]="{offlineBadge: newServerStatus==='offline', onlineBadge: newServerStatus==='online'}">{{ newServerStatus }}</span> -->
+	<!-- <span *ngIf="newServerStatus==='offline'; else onlineBadge"  class='offline-badge'>Offline</span>
+	<ng-template #onlineBadge>
+		<span>Online</span>
+	</ng-template> -->
+
+<p>New Server Name: {{ newServerName }}</p>
+<ng-container [ngSwitch]="newServerStatus">
+	<span *ngSwitchCase="'offline'" class='offlineBadge'>Offline</span>
+	<span *ngSwitchCase="'online'" class='onlineBadge'>Online</span>
+</ng-container>

@@ -1,47 +1,37 @@
 // ng g c servers
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IServer } from '../iserver';
+import { ServersService } from '../servers.service';
+import { CockpitComponent } from '../cockpit/cockpit.component';
 
 
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
-  styleUrls: ['./servers.component.scss']
+  styleUrls: ['./servers.component.scss'],
 })
-export class ServersComponent implements OnInit {
+export class ServersComponent implements OnInit, AfterViewInit {
 
-  public newServerName:string='';
-  public newServerStatus:string='offline';
+  @ViewChild('cockpit', {static: false}) public cockpit:CockpitComponent;
 
-  public servers:IServer[]=[
-  	{
-  		id: 1,
-  		name: 'US Server',
-  		status:'online'
-  	}
-  ];
+  public servers:IServer[];
 
-  public constructor() { }
+  public constructor(private serversSvc: ServersService) { }
 
   public ngOnInit():void {
 
   	// to initilize your component properties including ajax requests
-
   	console.log('initializing server component');
+    this.servers = this.serversSvc.servers;
+    this.serversSvc.serversChanged.subscribe(servers=>{
+      this.servers = servers;
+    });
   }
 
-  public onAddNewServer():void {
-  	let lastId = this.servers.length + 1;
-  	this.servers = [
-  		...this.servers,
-  		{
-  			id: lastId,
-  			name: this.newServerName,
-  			status: this.newServerStatus
-  		}
-  	]
+  public ngAfterViewInit() {
+     // this.cockpit.currentId = this.servers.length + 1;
   }
 
   public onStatusChanged(server:IServer):void {

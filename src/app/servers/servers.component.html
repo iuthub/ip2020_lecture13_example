@@ -1,33 +1,13 @@
 
 <h2>Servers List:</h2>
 <div>
-	New Server:
-	<!-- <input type="text" (input)="onServerNameInput($event.target.value)"> -->
-	<input type="text" [(ngModel)]="newServerName">
-	&nbsp;
-	<select [(ngModel)]="newServerStatus">
-		<option value="offline">Offline</option>
-		<option value="online">Online</option>
-	</select>
-	<p>New Server Name: {{ newServerName }}</p>
-	<!-- <span [ngClass]="{offlineBadge: newServerStatus==='offline', onlineBadge: newServerStatus==='online'}">{{ newServerStatus }}</span> -->
-	<!-- <span *ngIf="newServerStatus==='offline'; else onlineBadge"  class='offline-badge'>Offline</span>
-	<ng-template #onlineBadge>
-		<span>Online</span>
-	</ng-template> -->
-
-	<ng-container [ngSwitch]="newServerStatus">
-		<span *ngSwitchCase="'offline'" class='offlineBadge'>Offline</span>
-		<span *ngSwitchCase="'online'" class='onlineBadge'>Online</span>
-	</ng-container>
-	
-
-	
-	&nbsp;
-	<button (click)="onAddNewServer()">Add</button>
+	<app-cockpit #cockpit></app-cockpit>
 </div>
 <ul>
 	<li *ngFor="let s of servers">
-		<app-server [server]="s" (statusChanged)="onStatusChanged($event)"></app-server>
+
+		<a [routerLink]="[s.id]">View Server: {{ s.name }}</a>
+		<!-- <app-server [server]="s" (statusChanged)="onStatusChanged($event)"></app-server> -->
+		<!-- *appUnless="s.id%2" -->
 	</li>
 </ul>

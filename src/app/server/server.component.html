@@ -1,12 +1,15 @@
-<dl>
+<dl appHighlight>
 	<dt>Server ID:</dt>
-	<dd>{{ server.id }}</dd>
+	<dd>{{ server.id | exponential:2 }}</dd>
 
 	<dt>Server Name:</dt>
 	<dd>{{ server.name }}</dd>
 
 	<dt>Server Status:</dt>
 	<dd>{{ server.status }}</dd>
+
+	<dt>Server Created Date:</dt>
+	<dd>{{ server.createDate | date:"d/M/y" }}</dd>
 
 	<dt>&nbsp;</dt>
 	<dd>
